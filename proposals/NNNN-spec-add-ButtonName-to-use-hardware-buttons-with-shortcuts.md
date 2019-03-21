@@ -11,7 +11,7 @@ This proposal adds new set of functions (ButtonName) to enable the hardware butt
 
 ## Motivation
 
-The aim of this proposal is to add the support for hardware button installed in the vehicle as a rotary button. Hardware buttons are physical input devices installed in vehicles such as rotary button. By linking a function (ButtonName) to a rotary button, the user can instruct the projection mode applications such as navigation application to Zoom In / Zoom Out, Back, etc. without using software buttons on the HEW. Adding this function improves the operability and appearance of applications that use the projection mode.
+The aim of this proposal is to add the support for hardware button installed in the vehicle as a rotary button. Hardware buttons are physical input devices installed in vehicles such as rotary button. By linking a function (ButtonName) to a rotary button, the user can instruct the projection mode applications such as navigation application to Zoom In / Zoom Out, Back, etc. without using software buttons on the HU. Adding this function improves the operability and appearance of applications that use the projection mode.
 
 ## Proposed Solution
 
