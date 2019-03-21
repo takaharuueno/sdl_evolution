@@ -7,351 +7,122 @@
 
 ## Introduction
 
-This proposal adds a new function (ButtonName) to use the hardware button installed in the vehicle as a shortcut key.
+This proposal adds new set of functions (ButtonName) to enable the hardware button installed in the vehicle as a rotary button.
 
 ## Motivation
 
-This proposal is a proposal for adding a hardware button installed in the vehicle to ButtonName.
-Hardware buttons are not only buttons but also general physical input devices installed in vehicles such as rotary encoders.
-While in the projection mode, the HU can not grasp the contents displayed on the screen.
-So, during projection mode, it is very difficult for the HU to place soft buttons on the screen.
-Thus, among projection modes, the contents to display to a screen of HU should entrust navigation application.
-Also, applications that use projection mode should be limited to navigation applications and OEM applications.
-Because HU does not locate a soft button on a screen, the navigation application can make content of the projection freely.
-However, the functions of icons and buttons that can be displayed on the projection should be limited to the functions added this time.
-If there is a function other than the function to be added, it should be expressed as a menu item.
-By doing so, by linking the function (ButtonName) to the hardware button, you can instruct the navigation application without displaying the soft button on the HU's UI.
-The contents of the instruction are ZoomIn / ZoomOut, Back etc.
-Adding this function improves the operability and appearance of applications that use the projection mode.
-The function to add is as follows.
+The aim of this proposal is to add the support for hardware button installed in the vehicle as a rotary button. Hardware buttons are physical input devices installed in vehicles such as rotary button. By linking a function (ButtonName) to a rotary button, the user can instruct the projection mode applications such as navigation application to Zoom In / Zoom Out, Back, etc. without using software buttons on the HEW. Adding this function improves the operability and appearance of applications that use the projection mode.
 
-* Display Current Location
-  * This is the function to set your current location in the center of the map. By adding this function, users will be able to easily center their current location.
-* Zoom In
-  * This function is for enlarging the map screen when using the Navigation App.
-* Zoom Out
-  * It is a function to reduce the map screen when using the Navigation App.
-* Map Scroll Up
-  * This is a function to scroll up on the map screen when using the Navigation App.
-* Map Scroll Down
-  * This function is for scrolling down on the map screen when using the Navigation App.
-* Map Scroll Left
-  * This function is for scrolling to the left on the map screen when using the Navigation App.
-* Map Scroll Right
-  * This function is for scrolling to the right on the map screen when using the Navigation App.
-* Move Focus Up
-  * It is a function for moving the focus upward on a screen (list screen) other than the map screen.
-* Move Focus Down
-  * It is a function for moving the focus downward on a screen (list screen) other than the map screen.
-* Move Focus Left
-  * It is a function to move the focus to the left with a screen (list screen) other than the map screen.
-* Move Focus Right
-  * It is a function to move the focus to the right with a screen (list screen) other than the map screen.
-* Back
-  * It is a function for back to the previous screen.
-* Menu
-  * When using the Navigation App, this function has the following usage.
-    * Displaying current location: Transit to Menu screen of the Navigation App.
-    * Maps scrolling: Transit to the corresponding Menu screen like destination setting.
+## Proposed Solution
 
-Also, in order to assign multiple functions to one hardware button, use displayLayout as below.
+When an action is performed by the rotary button, the HU identifies the action and triggers the corresponding function to the application. For eg.
 
-* NAV_FULLSCREEN_MAP : Top layer screen (map screen) of the Navigation App
-* NAV_LIST：Screen besides the Top layer of the Navigation App (List screen such as Menu)
+- **Rotary button Rotate Right:**
+  HU understand this action and trigger the zoom-in function to Navigation app
+- **Rotary button Rotate Left:**
+   HU understand this action and trigger the zoom-out function to Navigation app
+- **Rotary button Slide Upward:**
+   HU understand this action and trigger the scroll-up function to Navigation app
+- **Rotary button Slide Downward:**
+   HU understand this action and trigger the scroll-down function to Navigation app
+- **Rotary button Slide Leftward:**
+   HU understand this action and trigger the scroll-left function to Navigation app
+- **Rotary button Slide Rightward:**
+   HU understand this action and trigger the scroll-right function to Navigation app
 
-In the Navigation App, it is necessary to notify the HU of "NAV_FULLSCREEN_MAP" or "NAV_LIST" at the timing when the display contents change.
+In this case the HU is responsible for handling the action from Rotary button and trigger the function to the mobile device.
 
-The use of "NAV_FULLSCREEN_MAP" and "NAV_LIST" is as follows.
+The functions to be added is as follows,
 
-* The Navigation App start sequence (NAV_FULLSCREEN_MAP notice sequence)
+- **Display Current Location:**
+This is the function to recenter the current location in the screen. By adding this function, the users will be able to easily center their current location in the screen when using the Navigation App.
+
+- **Zoom In:**
+This function is for zooming in the map when using the Navigation App.
+
+- **Zoom Out:**
+This function is for zooming out the map when using the Navigation App.
+
+- **Map Scroll Up:**
+This is a function for scrolling up on the map when using the Navigation App.
+
+- **Map Scroll Down:**
+This function is for scrolling down on the map when using the Navigation App.
+
+- **Map Scroll Left:**
+This function is for scrolling to the left on the map when using the Navigation App.
+
+- **Map Scroll Right:**
+This function is for scrolling to the right on the map when using the Navigation App.
+
+- **Move Focus Next Item:**
+This function is for moving the focus to next item on the list screen of the navigation application.
+
+- **Move Focus Previous Item:**
+This function is for moving the focus to previous item on the list screen of the navigation application.
+
+- **Go Back:**
+It is a function for implement the back functionality.
+
+- **Menu:**
+This function is for displaying the consolidated list of menus in Navigation application. The application supplier need to display all the menu options in a single list when menu function is invoked.
+
+- **Select:**
+This function is for selecting the currently focused item of Navigation application.
+
+#### Display Layout
+
+In order to assign multiple functions to one hardware button, application need to notify the screen changes of projection application to HU as given below,
+
+1. **NAV_FULLSCREEN_MAP :** Top layer screen of the Navigation app is Map Screen. If user press the back button from this screen, the application should exit.
+2. **NAV_LIST：** Screen besides the Top layer of the Navigation app (List screen such as Menu).
+
+Functions usage as per display layout is described in the table below,
+
+|Display Layout | Function | Description |
+|---|---|---|
+|NAVI_FULLSCREEN|ZOOM-IN|Map Zoom-In|
+|NAVI_FULLSCREEN|ZOOM-OUT|Map Zoom-Out|
+|NAVI_FULLSCREEN|MAP_SCROLL_UP|Scrolling up on the map|
+|NAVI_FULLSCREEN|MAP_SCROLL_DOWN|Scrolling down on the map|
+|NAVI_FULLSCREEN|MAP_SCROLL_RIGHT|Scrolling right on the map|
+|NAVI_FULLSCREEN|MAP_SCROLL_LEFT|Scrolling left on the map|
+|NAVI_FULLSCREEN|DISPLAY_CURRENT_LOCATION|Recenter the current location in Map|
+|NAVI_FULLSCREEN|MENU|Open menu of Navigation application|
+|NAVI_LIST|MOVE_FOCUS_NEXT_ITEM|Moving the focus to next item on the list screen|
+|NAVI_LIST|MOVE_FOCUS_PREVIOUS_ITEM|Moving the focus to previous item on the list screen|
+|NAVI_LIST|SELECT|Selecting the currently focused item|
+|Any Screen|GO_BACK|Go back to the previous screen|
 
 
-* ButtonName notification sequence when "ZOOM_IN" is selected (NAV_FULLSCREEN_MAP)
+The below sequences depicts the general idea of functions of  **"NAV_FULLSCREEN_MAP"** and **"NAV_LIST"** display layouts.
+
+- The Navigation app start sequence (NAV_FULLSCREEN_MAP notice sequence)
+
+<img src="../assets/proposals/NNNN-Commander_Proposal/app_start_sequence.png" width="700">
 
 
-* ButtonName notification sequence when "MENU" is selected (NAV_LIST notice sequence)
+- ButtonName notification sequence when "ZOOM_IN" is selected (NAV_FULLSCREEN_MAP)
 
+<img src="../assets/proposals/NNNN-Commander_Proposal/zoom_in_sequence.png" width="700">
 
-* ButtonName notification sequence when "MOVE_FOCUS_DOWN" is selected (NAV_LIST)
+- ButtonName notification sequence when "MENU" is selected (NAV_LIST)
 
+<img src="../assets/proposals/NNNN-Commander_Proposal/menu_sequence.png" width="700">
 
-## Proposed solution
+- ButtonName notification sequence when "MAP_SCROLL_RIGHT" is selected (NAV_FULLSCREEN_MAP)
 
-In order to realize these proposals, we add a new ButtonName. Make changes to the three platforms (Core, iOS, Android).
+<img src="../assets/proposals/NNNN-Commander_Proposal/move_right_sequence.png" width="700">
 
-### Spec Impact:
+- ButtonName notification sequence when "MOVE_FOCUS_NEXT_ITEM" is selected (NAV_LIST)
 
-MOBILE_API.xml
+<img src="../assets/proposals/NNNN-Commander_Proposal/move_next_sequence.png" width="700">
 
-```xml
-...
-<enum name="ButtonName">
-    ...
-        <!-- Buttons for mobile navigation apps -->
-            <!-- 
-            * These buttons are used to manipulate the mobile navigation application with hardware keys.
-            * These buttons can be used when the mobile navigation application sets "NAV_FULLSCREEN_MAP" or "NAV_LIST" as displayLayout.
-            -->
-        <element name="DISPLAY_CURRENT_LOCATION" since="x.x">
-            <warning>
-                Notify "DISPLAY_CURRENT_LOCATION" function irrespective of the set displayLayout.
-                When this function is notified, please display the current location in the center of the screen regardless of the display status.
-            </warning>
-        </element>
-        <element name="ZOOM_IN" since="x.x">
-            <warning>
-                It may be notified when displayLayout is set to "NAV_FULLSCREEN_MAP".
-            </warning>
-        </element>
-        <element name="ZOOM_OUT" since="x.x">
-            <warning>
-                It may be notified when displayLayout is set to "NAV_FULLSCREEN_MAP".
-            </warning>
-        </element>
-        <element name="MAP_SCROLL_UP" since="x.x">
-             <warning>
-                It may be notified when displayLayout is set to "NAV_FULLSCREEN_MAP".
-            </warning>
-        </element>
-        <element name="MAP_SCROLL_DOWN" since="x.x">
-            <warning>
-                It may be notified when displayLayout is set to "NAV_FULLSCREEN_MAP".
-            </warning>
-        </element>
-        <element name="MAP_SCROLL_LEFT" since="x.x">
-            <warning>
-                It may be notified when displayLayout is set to "NAV_FULLSCREEN_MAP".
-            </warning>
-        </element>
-        <element name="MAP_SCROLL_RIGHT" since="x.x">
-            <warning>
-                It may be notified when displayLayout is set to "NAV_FULLSCREEN_MAP".
-            </warning>
-        </element>
-        <element name="MOVE_FOCUS_UP" since="x.x">
-            <warning>
-                It may be notified when displayLayout is set to "NAV_LIST".
-            </warning>
-        </element>
-        <element name="MOVE_FOCUS_DOWN" since="x.x">
-            <warning>
-                It may be notified when displayLayout is set to "NAV_LIST".
-            </warning>
-        </element>
-        <element name="MOVE_FOCUS_LEFT" since="x.x">
-            <warning>
-                It may be notified when displayLayout is set to "NAV_LIST".
-            </warning>
-        </element>
-        <element name="MOVE_FOCUS_RIGHT" since="x.x">
-            <warning>
-                It may be notified when displayLayout is set to "NAV_LIST".
-            </warning>
-        </element>
-        <element name="BACK" since="x.x">
-            <warning>
-                It may be notified when displayLayout is set to "NAV_LIST".
-            </warning>
-        </element>
-        <element name="MENU" since="x.x">
-            <warning>
-                It may be notified when displayLayout is set to "NAV_FULLSCREEN_MAP".
-                When this function is notified, it is necessary for the application to consider the function distribution.
-                For example, when this function is notified during map scrolling, it is necessary to display the destination setting item of Menu.
-            </warning>
-        </element>
-    </enum>
-...
-```
+##Detailed Design
 
-### iOS Impact:
+#### SDL Core:
 
-SDLButtonName.h:
-
-```objc
-@import "SDLEnum.h"
-...
-/**
- * Represents a display current location button.
- */
-extern SDLButtonName const SDLButtonNameDisplayCurrentLocation;
-
-/**
- * Represents a zoom in button.
- */
-extern SDLButtonName const SDLButtonNameZoomIn;
-
-/**
- * Represents a zoom out button.
- */
-extern SDLButtonName const SDLButtonNameZoomOut;
-
-/**
- * Represents a map scroll up button.
- */
-extern SDLButtonName const SDLButtonNameMapScrollUp;
-
-/**
- * Represents a map scroll down button.
- */
-extern SDLButtonName const SDLButtonNameMapScrollDown;
-
-/**
- * Represents a map scroll left button.
- */
-extern SDLButtonName const SDLButtonNameMapScrollLeft;
-
-/**
- * Represents a map scroll right button.
- */
-extern SDLButtonName const SDLButtonNameMapScrollRight;
-
-/**
- * Represents a move focus up button.
- */
-extern SDLButtonName const SDLButtonNameMoveFocusUp;
-
-/**
- * Represents a move focus down button.
- */
-extern SDLButtonName const SDLButtonNameMoveFocusDown;
-
-/**
- * Represents a move focus left button.
- */
-extern SDLButtonName const SDLButtonNameMoveFocusLeft;
-
-/**
- * Represents a move focus right button.
- */
-extern SDLButtonName const SDLButtonNameMoveFocusRight;
-
-/**
- * Represents a back button.
- */
-extern SDLButtonName const SDLButtonNameBack;
-
-/**
- * Represents a menu button.
- */
-extern SDLButtonName const SDLButtonNameMenu;
-
-@end
-```
-
-SDLButtonName.m:
-
-```objc
-...
-SDLButtonName const SDLButtonNameDisplayCurrentLocation = @"DISPLAY_CURRENT_LOCATION";
-SDLButtonName const SDLButtonNameZoomIn = @"ZOOM_IN";
-SDLButtonName const SDLButtonNameZoomOut = @"ZOOM_OUT";
-SDLButtonName const SDLButtonNameMapScrollUp = @"MAP_SCROLL_UP";
-SDLButtonName const SDLButtonNameMapScrollDown = @"MAP_SCROLL_DOWN";
-SDLButtonName const SDLButtonNameMapScrollLeft = @"MAP_SCROLL_LEFT";
-SDLButtonName const SDLButtonNameMapScrollRight = @"MAP_SCROLL_RIGHT";
-SDLButtonName const SDLButtonNameMoveFocusUp = @"MOVE_FOCUS_UP";
-SDLButtonName const SDLButtonNameMoveFocusDown = @"MOVE_FOCUS_DOWN";
-SDLButtonName const SDLButtonNameMoveFocusLeft = @"MOVE_FOCUS_LEFT";
-SDLButtonName const SDLButtonNameMoveFocusRight = @"MOVE_FOCUS_RIGHT";
-SDLButtonName const SDLButtonNameBack = @"BACK";
-SDLButtonName const SDLButtonNameMenu = @"MENU";
-
-```
-
-### Android Impact:
-
-ButtonName.java
-
-```java
-public enum ButtonName {
-    ...,
-    /**
-     * Represents the display current location button.
-     * 
-     * @since SmartDeviceLink x.x
-     */
-    DISPLAY_CURRENT_LOCATION,
-    /**
-     * Represents the zoom in button.
-     * 
-     * @since SmartDeviceLink x.x
-     */
-    ZOOM_IN,
-    /**
-     * Represents the zoom out button.
-     * 
-     * @since SmartDeviceLink x.x
-     */
-    ZOOM_OUT,
-    /**
-     * Represents the map scroll up button.
-     * 
-     * @since SmartDeviceLink x.x
-     */
-    MAP_SCROLL_UP,
-    /**
-     * Represents the map scroll down button.
-     * 
-     * @since SmartDeviceLink x.x
-     */
-    MAP_SCROLL_DOWN,
-    /**
-     * Represents the map scroll left button.
-     * 
-     * @since SmartDeviceLink x.x
-     */
-    MAP_SCROLL_LEFT,
-    /**
-     * Represents the map scroll right button.
-     * 
-     * @since SmartDeviceLink x.x
-     */
-    MAP_SCROLL_RIGHT,
-    /**
-     * Represents the move focus up button.
-     * 
-     * @since SmartDeviceLink x.x
-     */
-    MOVE_FOCUS_UP,
-    /**
-     * Represents the move focus down button.
-     * 
-     * @since SmartDeviceLink x.x
-     */
-    MOVE_FOCUS_DOWN,
-    /**
-     * Represents the move focus left button.
-     * 
-     * @since SmartDeviceLink x.x
-     */
-    MOVE_FOCUS_LEFT,
-    /**
-     * Represents the move focus right button.
-     * 
-     * @since SmartDeviceLink x.x
-     */
-    MOVE_FOCUS_RIGHT,
-    /**
-     * Represents the back button.
-     * 
-     * @since SmartDeviceLink x.x
-     */
-    BACK,
-    /**
-     * Represents the menu button.
-     * 
-     * @since SmartDeviceLink x.x
-     */
-    MENU,
-    ;
-    ...
-}
-```
-
-### Core Impact (Definitely much more):
-
-hmi_capabilities_impl.cc
+**hmi_capabilities_impl.cc**
 
 ```c
 ...
@@ -370,28 +141,25 @@ hmi_capabilities_impl.cc
   button_enum_name.insert(
       std::make_pair(std::string("MAP_SCROLL_RIGHT"), hmi_apis::Common_ButtonName::MAP_SCROLL_RIGHT));
   button_enum_name.insert(
-      std::make_pair(std::string("MOVE_FOCUS_UP"), hmi_apis::Common_ButtonName::MOVE_FOCUS_UP));
+      std::make_pair(std::string("MOVE_FOCUS_NEXT_ITEM"), hmi_apis::Common_ButtonName::MOVE_FOCUS_NEXT_ITEM));
   button_enum_name.insert(
-      std::make_pair(std::string("MOVE_FOCUS_DOWN"), hmi_apis::Common_ButtonName::MOVE_FOCUS_DOWN));
+      std::make_pair(std::string("MOVE_FOCUS_PREVIOUS_ITEM"), hmi_apis::Common_ButtonName::MOVE_FOCUS_PREVIOUS_ITEM));
   button_enum_name.insert(
-      std::make_pair(std::string("MOVE_FOCUS_LEFT"), hmi_apis::Common_ButtonName::MOVE_FOCUS_LEFT));
-  button_enum_name.insert(
-      std::make_pair(std::string("MOVE_FOCUS_RIGHT"), hmi_apis::Common_ButtonName::MOVE_FOCUS_RIGHT));
-  button_enum_name.insert(
-      std::make_pair(std::string("BACK"), hmi_apis::Common_ButtonName::BACK));
+      std::make_pair(std::string("GO_BACK"), hmi_apis::Common_ButtonName::GO_BACK));
   button_enum_name.insert(
       std::make_pair(std::string("MENU"), hmi_apis::Common_ButtonName::MENU));
-
+      button_enum_name.insert(
+      std::make_pair(std::string("SELECT"), hmi_apis::Common_ButtonName::SELECT));
 ```
 
-HMI_API.xml
+**HMI_API.xml**
 
 ```xml
 ...
 <enum name="ButtonName">
     ...
     <!-- Buttons for mobile navigation apps -->
-        <!-- 
+        <!--
          * These buttons are used to manipulate the mobile navigation application with hardware keys.
          * These buttons can be used when the mobile navigation application sets "NAV_FULLSCREEN_MAP" or "NAV_LIST" as displayLayout.
          -->
@@ -431,27 +199,17 @@ HMI_API.xml
             It may be notified when displayLayout is set to "NAV_FULLSCREEN_MAP".
         </warning>
     </element>
-    <element name="MOVE_FOCUS_UP">
+    <element name="MOVE_FOCUS_NEXT_ITEM">
         <warning>
             It may be notified when displayLayout is set to "NAV_LIST".
         </warning>
     </element>
-    <element name="MOVE_FOCUS_DOWN">
+    <element name="MOVE_FOCUS_PREVIOUS_ITEM">
         <warning>
             It may be notified when displayLayout is set to "NAV_LIST".
         </warning>
     </element>
-    <element name="MOVE_FOCUS_LEFT">
-        <warning>
-            It may be notified when displayLayout is set to "NAV_LIST".
-        </warning>
-    </element>
-    <element name="MOVE_FOCUS_RIGHT">
-        <warning>
-            It may be notified when displayLayout is set to "NAV_LIST".
-        </warning>
-    </element>
-    <element name="BACK">
+    <element name="GO_BACK">
         <warning>
             It may be notified when displayLayout is set to "NAV_LIST".
         </warning>
@@ -463,13 +221,268 @@ HMI_API.xml
             For example, when this function is notified during map scrolling, it is necessary to display the destination setting item of Menu.
         </warning>
     </element>
+    <element name="SELECT">
+        <warning>
+            It may be notified when displayLayout is set to "NAV_LIST".
+        </warning>
+    </element>
 </enum>
 ...
 ```
 
+**MOBILE_API.xml**
+```xml
+...
+<enum name="ButtonName">
+    ...
+        <!-- Buttons for mobile navigation apps -->
+            <!--
+            * These buttons are used to manipulate the mobile navigation application with hardware keys.
+            * These buttons can be used when the mobile navigation application sets "NAV_FULLSCREEN_MAP" or "NAV_LIST" as displayLayout.
+            -->
+        <element name="DISPLAY_CURRENT_LOCATION" since="x.x">
+            <warning>
+                Notify "DISPLAY_CURRENT_LOCATION" function irrespective of the set displayLayout.
+                When this function is notified, please display the current location in the center of the screen regardless of the display status.
+            </warning>
+        </element>
+        <element name="ZOOM_IN" since="x.x">
+            <warning>
+                It may be notified when displayLayout is set to "NAV_FULLSCREEN_MAP".
+            </warning>
+        </element>
+        <element name="ZOOM_OUT" since="x.x">
+            <warning>
+                It may be notified when displayLayout is set to "NAV_FULLSCREEN_MAP".
+            </warning>
+        </element>
+        <element name="MAP_SCROLL_UP" since="x.x">
+             <warning>
+                It may be notified when displayLayout is set to "NAV_FULLSCREEN_MAP".
+            </warning>
+        </element>
+        <element name="MAP_SCROLL_DOWN" since="x.x">
+            <warning>
+                It may be notified when displayLayout is set to "NAV_FULLSCREEN_MAP".
+            </warning>
+        </element>
+        <element name="MAP_SCROLL_LEFT" since="x.x">
+            <warning>
+                It may be notified when displayLayout is set to "NAV_FULLSCREEN_MAP".
+            </warning>
+        </element>
+        <element name="MAP_SCROLL_RIGHT" since="x.x">
+            <warning>
+                It may be notified when displayLayout is set to "NAV_FULLSCREEN_MAP".
+            </warning>
+        </element>
+        <element name="MOVE_FOCUS_NEXT_ITEM" since="x.x">
+            <warning>
+                It may be notified when displayLayout is set to "NAV_LIST".
+            </warning>
+        </element>
+        <element name="MOVE_FOCUS_PREVIOUS_ITEM" since="x.x">
+            <warning>
+                It may be notified when displayLayout is set to "NAV_LIST".
+            </warning>
+        </element>
+        <element name="GO_BACK" since="x.x">
+            <warning>
+                It may be notified when displayLayout is set to "NAV_LIST".
+            </warning>
+        </element>
+        <element name="MENU" since="x.x">
+            <warning>
+                It may be notified when displayLayout is set to "NAV_FULLSCREEN_MAP".
+                When this function is notified, it is necessary for the application to consider the function distribution.
+                For example, when this function is notified during map scrolling, it is necessary to display the destination setting item of Menu.
+            </warning>
+        </element>
+        <element name="SELECT" since="x.x">
+            <warning>
+                It may be notified when displayLayout is set to "NAV_LIST".
+            </warning>
+        </element>
+    </enum>
+...
+
+```
+
+#### iOS:
+
+**SDLButtonName.h:**
+
+```objc
+@import "SDLEnum.h"
+
+...
+/**
+ * Represents a display current location button.
+ */
+extern SDLButtonName const SDLButtonNameDisplayCurrentLocation;
+
+/**
+ * Represents a zoom in button.
+ */
+extern SDLButtonName const SDLButtonNameZoomIn;
+
+/**
+ * Represents a zoom out button.
+ */
+extern SDLButtonName const SDLButtonNameZoomOut;
+
+/**
+ * Represents a map scroll up button.
+ */
+extern SDLButtonName const SDLButtonNameMapScrollUp;
+
+/**
+ * Represents a map scroll down button.
+ */
+extern SDLButtonName const SDLButtonNameMapScrollDown;
+
+/**
+ * Represents a map scroll left button.
+ */
+extern SDLButtonName const SDLButtonNameMapScrollLeft;
+
+/**
+ * Represents a map scroll right button.
+ */
+extern SDLButtonName const SDLButtonNameMapScrollRight;
+
+/**
+ * Represents a move focus next item button.
+ */
+extern SDLButtonName const SDLButtonNameMoveFocusNextItem;
+
+/**
+ * Represents a move focus previous item button.
+ */
+extern SDLButtonName const SDLButtonNameMoveFocusPreviousItem;
+
+/**
+ * Represents a back button.
+ */
+extern SDLButtonName const SDLButtonNameGoBack;
+
+/**
+ * Represents a menu button.
+ */
+extern SDLButtonName const SDLButtonNameMenu;
+
+/**
+ * Represents a menu button.
+ */
+extern SDLButtonName const SDLButtonNameSelect;
+
+```
+
+**SDLButtonName.m:**
+
+```objc
+...
+SDLButtonName const SDLButtonNameDisplayCurrentLocation = @"DISPLAY_CURRENT_LOCATION";
+SDLButtonName const SDLButtonNameZoomIn = @"ZOOM_IN";
+SDLButtonName const SDLButtonNameZoomOut = @"ZOOM_OUT";
+SDLButtonName const SDLButtonNameMapScrollUp = @"MAP_SCROLL_UP";
+SDLButtonName const SDLButtonNameMapScrollDown = @"MAP_SCROLL_DOWN";
+SDLButtonName const SDLButtonNameMapScrollLeft = @"MAP_SCROLL_LEFT";
+SDLButtonName const SDLButtonNameMapScrollRight = @"MAP_SCROLL_RIGHT";
+SDLButtonName const SDLButtonNameMoveFocusUp = @"MOVE_FOCUS_NEXT_ITEM";
+SDLButtonName const SDLButtonNameMoveFocusDown = @"MOVE_FOCUS_PREVIOUS_ITEM";
+SDLButtonName const SDLButtonNameGoBack = @"GO_BACK";
+SDLButtonName const SDLButtonNameMenu = @"MENU";
+SDLButtonName const SDLButtonNameSelect = @"SELECT";
+```
+
+#### Android:
+
+**ButtonName.java**
+
+```java
+public enum ButtonName {
+    ...,
+    /**
+     * Represents the display current location button.
+     *
+     * @since SmartDeviceLink x.x
+     */
+    DISPLAY_CURRENT_LOCATION,
+    /**
+     * Represents the zoom in button.
+     *
+     * @since SmartDeviceLink x.x
+     */
+    ZOOM_IN,
+    /**
+     * Represents the zoom out button.
+     *
+     * @since SmartDeviceLink x.x
+     */
+    ZOOM_OUT,
+    /**
+     * Represents the map scroll up button.
+     *
+     * @since SmartDeviceLink x.x
+     */
+    MAP_SCROLL_UP,
+    /**
+     * Represents the map scroll down button.
+     *
+     * @since SmartDeviceLink x.x
+     */
+    MAP_SCROLL_DOWN,
+    /**
+     * Represents the map scroll left button.
+     *
+     * @since SmartDeviceLink x.x
+     */
+    MAP_SCROLL_LEFT,
+    /**
+     * Represents the map scroll right button.
+     *
+     * @since SmartDeviceLink x.x
+     */
+    MAP_SCROLL_RIGHT,
+    /**
+     * Represents the move focus up button.
+     *
+     * @since SmartDeviceLink x.x
+     */
+    MOVE_FOCUS_NEXT_ITEM,
+    /**
+     * Represents the move focus next item button.
+     *
+     * @since SmartDeviceLink x.x
+     */
+    MOVE_FOCUS_PREVIOUS_ITEM,
+    /**
+     * Represents the move focus previous item button.
+     *
+     * @since SmartDeviceLink x.x
+     */
+    GO_BACK,
+    /**
+     * Represents the menu button.
+     *
+     * @since SmartDeviceLink x.x
+     */
+    MENU,
+     /**
+     * Represents the select button.
+     *
+     * @since SmartDeviceLink x.x
+     */
+    SELECT,
+    ;
+    ...
+}
+```
+
 ## Potential downsides
 
-There is no problem assumed in this proposal.
+There are no downsides assumed for this proposal.
 
 ## Impact on existing code
 
@@ -477,50 +490,21 @@ This change will not affect previous versions of SDL.
 
 ## Alternatives considered
 
-None.
+Instead of notifying the actions to be performed, HU notifies the hardware button action directly to the application. Then the application works by interpreting the action by itself. For example,
 
-## Appendix
+- **Rotary button Rotate Right**
+   HU sends the action directly to Navigation app and Navigation app in projection mode understand this action and perform the function.
+- **Rotary button Rotate Left**
+   HU sends the action directly to Navigation app and Navigation app in projection mode understand this action and perform the function.
+- **Rotary button Slide Upward**
+   HU sends the action directly to Navigation app and Navigation app in projection mode understand this action and perform  the function.
+- **Rotary button Slide Downward**
+   HU sends the action directly to Navigation app and Navigation app in projection mode understand this action and perform the function.
+- **Rotary button Slide Leftward**
+   HU sends the action directly to Navigation app and Navigation app in projection mode understand this action and perform the function.
+- **Rotary button Slide Rightward**
+   HU sends the action directly to Navigation app and Navigation app in projection mode understand this action and perform the function.
 
-In order to realize this proposal, the HU needs to read the information of the hardware button equipped in the vehicle, and dispose that button as appropriate to ButtonName.
-As an example, let's take a look at the keyboard key of the PC as a hardware button installed in the vehicle, read it with sdl_hmi, and introduce a mechanism to notify the mobile application of ButtonName without going through the soft button.
-
-The base code is as follows.  
-HU：sdl_hmi (`https://github.com/smartdevicelink/sdl_hmi`) commit id:2db0b73444ac46db72ffe45e1eae166836be4a4a
-
-It is assumed that ButtonName to be notified is subscribed
-
-Correct so that the press information of the PC key is notified to the sdl_hmi file (src / app / view / navigationAppView.js).
-
-```js
-...
-
-SDL.NavigationAppView = Em.ContainerView.create(
-  {
-…(abb)…
-    didInsertElement: function() {
-      return this.$().attr({ tabindex: 1 }), this.$().focus();
-    },
-…(abb)…
-    keyDown: function(event) {
-      // Describe processing when the PC key is pressed
-      if(event.keyCode == 49)
-      {
-          FFW.Buttons.buttonEvent('BUTTON_NAME','BUTTONDOWN');
-      }
-    },
-    keyUp: function(event) {
-      // Since the key of the PC has been released, BUTTONUP is notified to the Mobile application
-      if(event.keyCode == 49)
-      {
-          FFW.Buttons.buttonEvent('BUTTON_NAME','BUTTONUP');
-          FFW.Buttons.buttonPressed('BUTTON_NAME','SHORT');
-      }
-    },
-…(abb)…
-  }
-);
-
-...
-```
-
-Using sdl_hmi with the above modification, keyDown will be called when you press the key on the PC keyboard. Then release key to call keyUp. By calling FFW.Buttons.buttonEvent () at each timing, you can inform the mobile application of ButtonName.
+**Potential downsides** of alternate proposal are,
+1. It's hard to define all the hardware buttons which all the OEM have
+2. The OEMs are not able to control the user experiences nor the unified UI behavior between other similar applications because only the application vendor knows how to deal the hardware button.
