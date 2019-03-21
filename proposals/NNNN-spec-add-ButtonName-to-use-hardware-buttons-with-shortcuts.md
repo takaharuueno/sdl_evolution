@@ -118,7 +118,7 @@ The below sequences depicts the general idea of functions of  **"NAV_FULLSCREEN_
 
 <img src="../assets/proposals/NNNN-Commander_Proposal/move_next_sequence.png" width="700">
 
-##Detailed Design
+## Detailed Design
 
 #### SDL Core:
 
