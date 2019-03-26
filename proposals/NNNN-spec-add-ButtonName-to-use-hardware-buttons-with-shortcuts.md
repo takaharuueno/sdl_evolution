@@ -55,6 +55,9 @@ This function is for scrolling to the left on the map when using the Navigation 
 - **Map Scroll Right:**
 This function is for scrolling to the right on the map when using the Navigation App.
 
+- **Menu:**
+This function is for displaying the consolidated list of menus in Navigation application. The application supplier need to display all the menu options except map scrolling in a list when menu function is invoked.
+
 - **Move Focus Next Item:**
 This function is for moving the focus to next item on the list screen of the navigation application.
 
@@ -63,9 +66,6 @@ This function is for moving the focus to previous item on the list screen of the
 
 - **Go Back:**
 It is a function for implement the back functionality.
-
-- **Menu:**
-This function is for displaying the consolidated list of menus in Navigation application. The application supplier need to display all the menu options in a single list when menu function is invoked.
 
 - **Select:**
 This function is for selecting the currently focused item of Navigation application.
