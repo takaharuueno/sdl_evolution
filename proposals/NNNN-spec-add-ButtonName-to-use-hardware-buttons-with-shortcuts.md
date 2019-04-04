@@ -22,13 +22,13 @@ When an action is performed by the rotary button, the HU identifies the action a
 - **Rotary button Rotate Left:**
    HU understand this action and trigger the zoom-out function to Navigation app
 - **Rotary button Slide Upward:**
-   HU understand this action and trigger the scroll-up function to Navigation app
+   HU understand this action and trigger the pan-up function to Navigation app
 - **Rotary button Slide Downward:**
-   HU understand this action and trigger the scroll-down function to Navigation app
+   HU understand this action and trigger the pan-down function to Navigation app
 - **Rotary button Slide Leftward:**
-   HU understand this action and trigger the scroll-left function to Navigation app
+   HU understand this action and trigger the pan-left function to Navigation app
 - **Rotary button Slide Rightward:**
-   HU understand this action and trigger the scroll-right function to Navigation app
+   HU understand this action and trigger the pan-right function to Navigation app
 
 In this case the HU is responsible for handling the action from Rotary button and trigger the function to the mobile device.
 
@@ -43,20 +43,20 @@ This function is for zooming in the map when using the Navigation App.
 - **Zoom Out:**
 This function is for zooming out the map when using the Navigation App.
 
-- **Map Scroll Up:**
-This is a function for scrolling up on the map when using the Navigation App.
+- **Map Pan Up:**
+This function is for panning up on the map when using the Navigation App.
 
-- **Map Scroll Down:**
-This function is for scrolling down on the map when using the Navigation App.
+- **Map Pan Down:**
+This function is for panning down on the map when using the Navigation App.
 
-- **Map Scroll Left:**
-This function is for scrolling to the left on the map when using the Navigation App.
+- **Map Pan Left:**
+This function is for panning to the left on the map when using the Navigation App.
 
-- **Map Scroll Right:**
-This function is for scrolling to the right on the map when using the Navigation App.
+- **Map Pan Right:**
+This function is for panning to the right on the map when using the Navigation App.
 
 - **Menu:**
-This function is for displaying the consolidated list of menus in Navigation application. The application supplier need to display all the menu options except map scrolling in a list when menu function is invoked.
+This function is for displaying the consolidated list of menus in Navigation application. The application supplier need to display all the menu options except map panning in a list when menu function is invoked.
 
 - **Move Focus Next Item:**
 This function is for moving the focus to next item on the list screen of the navigation application.
@@ -83,10 +83,10 @@ Functions usage as per display layout is described in the table below,
 |---|---|---|
 |NAVI_FULLSCREEN|ZOOM-IN|Map Zoom-In|
 |NAVI_FULLSCREEN|ZOOM-OUT|Map Zoom-Out|
-|NAVI_FULLSCREEN|MAP_SCROLL_UP|Scrolling up on the map|
-|NAVI_FULLSCREEN|MAP_SCROLL_DOWN|Scrolling down on the map|
-|NAVI_FULLSCREEN|MAP_SCROLL_RIGHT|Scrolling right on the map|
-|NAVI_FULLSCREEN|MAP_SCROLL_LEFT|Scrolling left on the map|
+|NAVI_FULLSCREEN|MAP_PAN_UP|Panning up on the map|
+|NAVI_FULLSCREEN|MAP_PAN_DOWN|Panning down on the map|
+|NAVI_FULLSCREEN|MAP_PAN_RIGHT|Panning right on the map|
+|NAVI_FULLSCREEN|MAP_PAN_LEFT|Panning left on the map|
 |NAVI_FULLSCREEN|DISPLAY_CURRENT_LOCATION|Recenter the current location in Map|
 |NAVI_FULLSCREEN|MENU|Open menu of Navigation application|
 |NAVI_LIST|MOVE_FOCUS_NEXT_ITEM|Moving the focus to next item on the list screen|
@@ -110,7 +110,7 @@ The below sequences depicts the general idea of functions of  **"NAV_FULLSCREEN_
 
 <img src="../assets/proposals/NNNN-Commander_Proposal/menu_sequence.png" width="700">
 
-- ButtonName notification sequence when "MAP_SCROLL_RIGHT" is selected (NAV_FULLSCREEN_MAP)
+- ButtonName notification sequence when "MAP_PAN_RIGHT" is selected (NAV_FULLSCREEN_MAP)
 
 <img src="../assets/proposals/NNNN-Commander_Proposal/move_right_sequence.png" width="700">
 
@@ -133,13 +133,13 @@ The below sequences depicts the general idea of functions of  **"NAV_FULLSCREEN_
   button_enum_name.insert(
       std::make_pair(std::string("ZOOM_OUT"), hmi_apis::Common_ButtonName::ZOOM_OUT));
   button_enum_name.insert(
-      std::make_pair(std::string("MAP_SCROLL_UP"), hmi_apis::Common_ButtonName::MAP_SCROLL_UP));
+      std::make_pair(std::string("MAP_PAN_UP"), hmi_apis::Common_ButtonName::MAP_PAN_UP));
   button_enum_name.insert(
-      std::make_pair(std::string("MAP_SCROLL_DOWN"), hmi_apis::Common_ButtonName::MAP_SCROLL_DOWN));
+      std::make_pair(std::string("MAP_PAN_DOWN"), hmi_apis::Common_ButtonName::MAP_PAN_DOWN));
   button_enum_name.insert(
-      std::make_pair(std::string("MAP_SCROLL_LEFT"), hmi_apis::Common_ButtonName::MAP_SCROLL_LEFT));
+      std::make_pair(std::string("MAP_PAN_LEFT"), hmi_apis::Common_ButtonName::MAP_PAN_LEFT));
   button_enum_name.insert(
-      std::make_pair(std::string("MAP_SCROLL_RIGHT"), hmi_apis::Common_ButtonName::MAP_SCROLL_RIGHT));
+      std::make_pair(std::string("MAP_PAN_RIGHT"), hmi_apis::Common_ButtonName::MAP_PAN_RIGHT));
   button_enum_name.insert(
       std::make_pair(std::string("MOVE_FOCUS_NEXT_ITEM"), hmi_apis::Common_ButtonName::MOVE_FOCUS_NEXT_ITEM));
   button_enum_name.insert(
@@ -179,22 +179,22 @@ The below sequences depicts the general idea of functions of  **"NAV_FULLSCREEN_
             It may be notified when displayLayout is set to "NAV_FULLSCREEN_MAP".
         </warning>
     </element>
-    <element name="MAP_SCROLL_UP">
+    <element name="MAP_PAN_UP">
         <warning>
             It may be notified when displayLayout is set to "NAV_FULLSCREEN_MAP".
         </warning>
     </element>
-    <element name="MAP_SCROLL_DOWN">
+    <element name="MAP_PAN_DOWN">
         <warning>
             It may be notified when displayLayout is set to "NAV_FULLSCREEN_MAP".
         </warning>
     </element>
-    <element name="MAP_SCROLL_LEFT">
+    <element name="MAP_PAN_LEFT">
         <warning>
             It may be notified when displayLayout is set to "NAV_FULLSCREEN_MAP".
         </warning>
     </element>
-    <element name="MAP_SCROLL_RIGHT">
+    <element name="MAP_PAN_RIGHT">
         <warning>
             It may be notified when displayLayout is set to "NAV_FULLSCREEN_MAP".
         </warning>
@@ -218,7 +218,7 @@ The below sequences depicts the general idea of functions of  **"NAV_FULLSCREEN_
         <warning>
             It may be notified when displayLayout is set to "NAV_FULLSCREEN_MAP".
             When this function is notified, it is necessary for the application to consider the function distribution.
-            For example, when this function is notified during map scrolling, it is necessary to display the destination setting item of Menu.
+            For example, when this function is notified during map panning, it is necessary to display the destination setting item of Menu.
         </warning>
     </element>
     <element name="SELECT">
@@ -256,22 +256,22 @@ The below sequences depicts the general idea of functions of  **"NAV_FULLSCREEN_
                 It may be notified when displayLayout is set to "NAV_FULLSCREEN_MAP".
             </warning>
         </element>
-        <element name="MAP_SCROLL_UP" since="x.x">
+        <element name="MAP_PAN_UP" since="x.x">
              <warning>
                 It may be notified when displayLayout is set to "NAV_FULLSCREEN_MAP".
             </warning>
         </element>
-        <element name="MAP_SCROLL_DOWN" since="x.x">
+        <element name="MAP_PAN_DOWN" since="x.x">
             <warning>
                 It may be notified when displayLayout is set to "NAV_FULLSCREEN_MAP".
             </warning>
         </element>
-        <element name="MAP_SCROLL_LEFT" since="x.x">
+        <element name="MAP_PAN_LEFT" since="x.x">
             <warning>
                 It may be notified when displayLayout is set to "NAV_FULLSCREEN_MAP".
             </warning>
         </element>
-        <element name="MAP_SCROLL_RIGHT" since="x.x">
+        <element name="MAP_PAN_RIGHT" since="x.x">
             <warning>
                 It may be notified when displayLayout is set to "NAV_FULLSCREEN_MAP".
             </warning>
@@ -295,7 +295,7 @@ The below sequences depicts the general idea of functions of  **"NAV_FULLSCREEN_
             <warning>
                 It may be notified when displayLayout is set to "NAV_FULLSCREEN_MAP".
                 When this function is notified, it is necessary for the application to consider the function distribution.
-                For example, when this function is notified during map scrolling, it is necessary to display the destination setting item of Menu.
+                For example, when this function is notified during map panning, it is necessary to display the destination setting item of Menu.
             </warning>
         </element>
         <element name="SELECT" since="x.x">
@@ -332,24 +332,24 @@ extern SDLButtonName const SDLButtonNameZoomIn;
 extern SDLButtonName const SDLButtonNameZoomOut;
 
 /**
- * Represents a map scroll up button.
+ * Represents a map pan up button.
  */
-extern SDLButtonName const SDLButtonNameMapScrollUp;
+extern SDLButtonName const SDLButtonNameMapPanUp;
 
 /**
- * Represents a map scroll down button.
+ * Represents a map pan down button.
  */
-extern SDLButtonName const SDLButtonNameMapScrollDown;
+extern SDLButtonName const SDLButtonNameMapPanDown;
 
 /**
- * Represents a map scroll left button.
+ * Represents a map pan left button.
  */
-extern SDLButtonName const SDLButtonNameMapScrollLeft;
+extern SDLButtonName const SDLButtonNameMapPanLeft;
 
 /**
- * Represents a map scroll right button.
+ * Represents a map pan right button.
  */
-extern SDLButtonName const SDLButtonNameMapScrollRight;
+extern SDLButtonName const SDLButtonNameMapPanRight;
 
 /**
  * Represents a move focus next item button.
@@ -385,10 +385,10 @@ extern SDLButtonName const SDLButtonNameSelect;
 SDLButtonName const SDLButtonNameDisplayCurrentLocation = @"DISPLAY_CURRENT_LOCATION";
 SDLButtonName const SDLButtonNameZoomIn = @"ZOOM_IN";
 SDLButtonName const SDLButtonNameZoomOut = @"ZOOM_OUT";
-SDLButtonName const SDLButtonNameMapScrollUp = @"MAP_SCROLL_UP";
-SDLButtonName const SDLButtonNameMapScrollDown = @"MAP_SCROLL_DOWN";
-SDLButtonName const SDLButtonNameMapScrollLeft = @"MAP_SCROLL_LEFT";
-SDLButtonName const SDLButtonNameMapScrollRight = @"MAP_SCROLL_RIGHT";
+SDLButtonName const SDLButtonNameMapPanUp = @"MAP_PAN_UP";
+SDLButtonName const SDLButtonNameMapPanlDown = @"MAP_PAN_DOWN";
+SDLButtonName const SDLButtonNameMapPanLeft = @"MAP_PAN_LEFT";
+SDLButtonName const SDLButtonNameMapPanRight = @"MAP_PAN_RIGHT";
 SDLButtonName const SDLButtonNameMoveFocusUp = @"MOVE_FOCUS_NEXT_ITEM";
 SDLButtonName const SDLButtonNameMoveFocusDown = @"MOVE_FOCUS_PREVIOUS_ITEM";
 SDLButtonName const SDLButtonNameGoBack = @"GO_BACK";
@@ -422,29 +422,29 @@ public enum ButtonName {
      */
     ZOOM_OUT,
     /**
-     * Represents the map scroll up button.
+     * Represents the map pan up button.
      *
      * @since SmartDeviceLink x.x
      */
-    MAP_SCROLL_UP,
+    MAP_PAN_UP,
     /**
-     * Represents the map scroll down button.
+     * Represents the map pan down button.
      *
      * @since SmartDeviceLink x.x
      */
-    MAP_SCROLL_DOWN,
+    MAP_PAN_DOWN,
     /**
-     * Represents the map scroll left button.
+     * Represents the map pan left button.
      *
      * @since SmartDeviceLink x.x
      */
-    MAP_SCROLL_LEFT,
+    MAP_PAN_LEFT,
     /**
-     * Represents the map scroll right button.
+     * Represents the map pan right button.
      *
      * @since SmartDeviceLink x.x
      */
-    MAP_SCROLL_RIGHT,
+    MAP_PAN_RIGHT,
     /**
      * Represents the move focus up button.
      *
