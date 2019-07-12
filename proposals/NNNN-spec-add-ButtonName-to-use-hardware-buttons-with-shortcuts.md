@@ -445,7 +445,7 @@ public enum ButtonName {
      * @since SmartDeviceLink x.x
      */
     MAP_PAN_RIGHT,
-    /**
+    /** 
      * Represents the move focus up button.
      *
      * @since SmartDeviceLink x.x
